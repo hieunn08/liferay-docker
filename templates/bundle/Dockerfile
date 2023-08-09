@@ -1,14 +1,9 @@
-FROM --platform=${TARGETPLATFORM} hieunn08/liferay-jdk11:latest AS liferay-jdk11
+FROM --platform=${TARGETPLATFORM} liferay/jdk11:latest AS liferay-jdk11
 
 RUN apt-get update && \
 	apt-get install --no-install-recommends --yes ffmpeg fonts-dejavu ghostscript imagemagick gifsicle libtcnative-1 && \
-	apt-get install software-properties-common -y && \
-	add-apt-repository ppa:alex-p/tesseract-ocr-devel -y && \
-	apt-get install tesseract-ocr -y && \
-	apt-get update -y && \
 	apt-get upgrade --yes && \
-	apt-get clean && \
-	apt-get autoremove -y
+	apt-get clean
 
 FROM liferay-jdk11
 
@@ -22,11 +17,8 @@ ARG LABEL_VCS_URL
 ARG LABEL_VERSION
 ARG TARGETPLATFORM
 
-COPY --chown=liferay:liferay resources/tmp.jar /home/liferay/tmp.jar
-COPY --chown=liferay:liferay resources/bladelatest.jar /home/liferay/bladelatest.jar
-COPY --chown=liferay:liferay liferay /opt/liferay
-COPY resources/usr/local/bin /usr/local/bin
-COPY resources/usr/share/tesseract-ocr/5/tessdata /usr/share/tesseract-ocr/5/tessdata
+COPY --chown=liferay:liferay liferay /opt/liferay/
+COPY resources/usr/local/bin/* /usr/local/bin/
 
 ENTRYPOINT ["tini", "--", "/usr/local/bin/liferay_entrypoint.sh"]
 
