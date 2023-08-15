@@ -2,7 +2,6 @@ FROM --platform=${TARGETPLATFORM} ubuntu:jammy AS ubuntu-jammy
 
 RUN apt-get update && \
 	apt-get install --no-install-recommends --yes bash ca-certificates curl less libnss3 telnet tini tree unzip && \
-	apt-get install dpkg && \ 
 	apt-get upgrade --yes && \
 	apt-get clean
 

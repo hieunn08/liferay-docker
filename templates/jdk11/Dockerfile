@@ -1,10 +1,10 @@
-FROM --platform=linux/arm64 hieunn08/liferay-base:latest as liferay-base-arm64
+FROM --platform=linux/arm64 hieunn08/liferay-base as liferay-base-arm64
 
 ARG LABEL_JDK_11_AMD64_VERSION
 ARG LABEL_JDK_11_ARM64_VERSION
 ARG LABEL_JDK_11_VERSION=${LABEL_JDK_11_ARM64_VERSION}
 
-FROM --platform=linux/amd64 hieunn08/liferay-base:latest as liferay-base-amd64
+FROM --platform=linux/amd64 hieunn08/liferay-base as liferay-base-amd64
 
 ARG LABEL_JDK_11_AMD64_VERSION
 ARG LABEL_JDK_11_ARM64_VERSION
@@ -23,7 +23,7 @@ ARG TARGETPLATFORM
 COPY --chown=liferay:liferay resources/home/liferay/.bashrc /home/liferay/
 COPY resources/usr/local/bin/* /usr/local/bin/
 
-ENV JAVA_VERSION=JDK11
+ENV JAVA_VERSION=jdk-11
 
 LABEL org.label-schema.build-date="${LABEL_BUILD_DATE}"
 LABEL org.label-schema.name="${LABEL_NAME}"
